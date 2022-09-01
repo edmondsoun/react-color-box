@@ -3,37 +3,47 @@ import NewBoxForm from './NewBoxForm'
 import { v4 as uuid } from 'uuid';
 import { useState } from "react"
 
-//state for all boxes
-//similar to list?
-function BoxList(){
+// [{id:xx, width:xx, height:xx, backgroundColor:xx}, ...]
+
+function BoxList() {
 
 
     const [boxes, setBoxes] = useState([]);
 
-    function renderItems() {
-      return (
-          <ul>
-            {boxes.map(box => (
-                <li key={box.id}>
-                  {box.width}: {box.qty}
-                </li>
-            ))}
-          </ul>
-      );
+    function renderBoxes() {
+        return (
+            <ul>
+                {boxes.map(box => (
+
+                    <Box 
+                            width={`${box.width}px`}
+                            height={`${box.height}px`}
+                            backgroundColor={box.backgroundColor}
+                            removeBox={removeBox} />
+
+                ))}
+            </ul>
+        );
     }
 
-    function addItem(box) {
-      let newBox= { ...box, id: uuid() };
-      setBoxes(boxes => [...boxes, newBox]);
+    function addBox(box) {
+        let newBox = { ...box, id: uuid() };
+        setBoxes(boxes => [...boxes, newBox]);
     }
 
+    function removeBox(boxId) {
+        setBoxes(boxes => boxes.filter(
+            b => b.id !== boxId
+        ));
+    }
 
-  return (
-    <div className="boxList">
-      <NewBoxForm  />
+    return (
+        <div className="boxList">
+            <NewBoxForm addBox={addBox} />
+            {renderBoxes()}
+        </div>
+    );
 
-    </div>
-  );
 }
 
 //render all Box components

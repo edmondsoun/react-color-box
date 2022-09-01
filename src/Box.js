@@ -1,7 +1,7 @@
 
 //display div with dimensions matching props passed to it
 
-function Box({ height, width, backgroundColor }) {
+function Box({ id, height, width, backgroundColor, removeBox }) {
 
     const myStyle = {
         height: height,
@@ -10,8 +10,16 @@ function Box({ height, width, backgroundColor }) {
     };
     //issues with variable names?
 
+    function handleRemove(evt) {
+        evt.preventDefault();
+        removeBox(id);
+      }
+
     return (
-        <div style={myStyle}></div>
+        <div>
+                <div style={myStyle}></div>
+                <button onClick={handleRemove}>X</button>
+        </div>
     );
 
 }

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 //inputs for width, height, bg color
 //clear form inputs on submit
 
-function NewBoxForm({ addItem }) {
+function NewBoxForm({ addBox }) {
   const initialState = {
     width: "",
     height: "",
@@ -14,9 +14,10 @@ function NewBoxForm({ addItem }) {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    addItem(formData);
+    addBox(formData);
     setFormData(initialState);
   }
+  
   function handleChange(evt) {
     const { name, value } = evt.target;
     setFormData((fData) => ({
@@ -24,6 +25,8 @@ function NewBoxForm({ addItem }) {
       [name]: value,
     }));
   }
+
+
 
   return (
     <form onSubmit={handleSubmit}>
